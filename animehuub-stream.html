@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AnimeHub — Stream Your Favorite Anime</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Drawer: Episodes -->
+  <aside id="episodeDrawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div class="drawer-title">Episodes</div>
+      <button class="icon-btn" id="closeDrawer" title="Close">✕</button>
+    </div>
+    <div class="drawer-body" id="drawerList"></div>
+  </aside>
+
+  <!-- Top bar -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="row">
+        <button class="icon-btn" id="openDrawer" aria-controls="episodeDrawer" title="Episodes">☰</button>
+        <a class="brand" href="#" onclick="showPage('home')">AnimeHub</a>
+        <span class="chip">Beta UI</span>
+      </div>
+      <div class="row">
+        <div class="search">
+          <input id="searchInput" class="input" placeholder="Search anime" onkeypress="handleSearchKeypress(event)">
+          <button class="btn" onclick="searchAnime()">Search</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+	<!-- Genres Bar -->
+<div id="genresBar" style="margin-top:72px; padding:10px 20px; overflow-x:auto; white-space:nowrap; border-bottom:1px solid #24243a;">
+  <button class="chip" onclick="filterByGenre('action')">Action</button>
+  <button class="chip" onclick="filterByGenre('adventure')">Adventure</button>
+  <button class="chip" onclick="filterByGenre('comedy')">Comedy</button>
+  <button class="chip" onclick="filterByGenre('drama')">Drama</button>
+  <button class="chip" onclick="filterByGenre('fantasy')">Fantasy</button>
+  <button class="chip" onclick="filterByGenre('romance')">Romance</button>
+  <button class="chip" onclick="filterByGenre('sci-fi')">Sci-Fi</button>
+  <button class="chip" onclick="filterByGenre('sports')">Sports</button>
+  <button class="chip" onclick="filterByGenre('slice of life')">Slice of Life</button>
+</div>
+
+  <main>
+    <div class="container">
+      <!-- Home -->
+<section id="home" class="page active">
+  <h2 class="section-title">Popular Anime</h2>
+  <div id="popularAnime" class="grid">
+    <div class="empty">Loading popular picks like it's 2009 internet...</div>
+  </div>
+
+  <!-- Pagination controls -->
+ <div id="homePagination" style="text-align:center; margin:20px 0;">
+  <button class="btn" onclick="prevHomePage()">Prev</button>
+  <span id="homePageIndicator" style="margin:0 10px;">Page 1</span>
+  <button class="btn" onclick="nextHomePage()">Next</button>
+</div>
+
+</section>
+
+
+      <!-- Search -->
+      <section id="search" class="page">
+        <h2 class="section-title">Search Results</h2>
+        <div id="searchResults" class="grid"></div>
+      </section>
+
+      <!-- Info -->
+      <section id="animeInfo" class="page">
+        <a class="back" href="#" onclick="showPage('home')">← Back to Home</a>
+        <div id="animeInfoContent"></div>
+      </section>
+
+      <!-- Player -->
+      <section id="episodePlayer" class="page">
+        <a class="back" href="#" onclick="goBackToAnime()">← Back to Episodes</a>
+        <div class="player-wrap">
+          <div class="video-box">
+            <video id="videoPlayer" controls crossorigin="anonymous"></video>
+          </div>
+          <div class="toolbar">
+            <span class="pill" id="nowPlaying">Not playing</span>
+            <select id="qualitySelect" class="select" onchange="changeQuality()">
+              <option value="">Quality</option>
+            </select>
+            <select id="audioSelect" class="select" onchange="changeAudio()" style="display:none">
+              <option value="">Audio</option>
+            </select>
+            <select id="subtitleSelect" class="select" onchange="changeSubtitle()" style="display:none">
+              <option value="">Subtitles</option>
+            </select>
+          </div>
+          <div id="downloadLinks" class="downloads"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
