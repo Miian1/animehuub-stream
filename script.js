@@ -1,6 +1,10 @@
 const API_BASE = 'https://animehuub-api.vercel.app';
-    const CORS_PROXY = 'https://animehuub-dark-moon-3071.mypcaccc01.workers.dev/v2';
+const CORS_PROXY = 'https://animehuub-dark-moon-3071.mypcaccc01.workers.dev/v2';
 
+function proxiedImage(url) {
+  if (!url) return '';
+  return `${CORS_PROXY}/${url}`;
+}
     let currentAnimeId = '';
     let currentEpisodeData = null;
     let episodeListCache = [];
@@ -130,7 +134,7 @@ function prevHomePage(){
       const el = document.getElementById(mountId);
       el.innerHTML = list.map(a=>`
         <div class="card" onclick="loadAnimeInfo('${a.id}')">
-          <img class="thumb" src="${a.image}" alt="${a.title}" onerror="this.style.opacity=.2">
+          <img class="thumb" src="${proxiedImage(a.image)}" alt="${a.title}" onerror="this.style.opacity=.2">
           <div class="card-body">
             <div class="title">${a.title}</div>
             <div class="status">${a.status || 'Unknown'}</div>
@@ -138,6 +142,8 @@ function prevHomePage(){
         </div>
       `).join('');
     }
+
+
 
     // Info page
     async function loadAnimeInfo(animeId){
@@ -159,7 +165,7 @@ function prevHomePage(){
       const eps = anime.episodes || [];
       document.getElementById('animeInfoContent').innerHTML = `
         <div class="info-head">
-          <img class="poster" src="${anime.image}" alt="${anime.title}" onerror="this.style.opacity=.2" />
+          <img class="poster" src="${proxiedImage(anime.image)}" alt="${anime.title}" onerror="this.style.opacity=.2" />
           <div>
             <h1 style="font-weight:800; font-size:28px; background:linear-gradient(45deg,var(--brand),var(--brand-2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent">${anime.title}</h1>
             <div class="meta">
