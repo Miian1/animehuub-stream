@@ -3,8 +3,9 @@ const CORS_PROXY = 'https://animehuub-dark-moon-3071.mypcaccc01.workers.dev/v2';
 
 function proxiedImage(url) {
   if (!url) return '';
-  return `${CORS_PROXY}/${url}`;
+  return `${CORS_PROXY}?url=${encodeURIComponent(url)}`;
 }
+
     let currentAnimeId = '';
     let currentEpisodeData = null;
     let episodeListCache = [];
